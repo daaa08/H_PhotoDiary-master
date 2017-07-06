@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.da08.h_photodiary.domain.Data;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +50,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
         holder.title.setText(ddata.title);
         holder.setDate(convertLongToString(ddata.date));
         holder.setPosition(position);
-        Glide.with(inflater.getContext()).load(ddata.fileUriString).into(holder.img);
+        Glide.with(inflater.getContext()).load(ddata.fileUriString).bitmapTransform(new CenterCrop(inflater.getContext())).into(holder.img);
 
     }
     private String convertLongToString(long date) {

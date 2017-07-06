@@ -1,5 +1,6 @@
 package com.example.da08.h_photodiary;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +27,8 @@ public class CustomListActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference dataRef;
 
+    ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,12 @@ public class CustomListActivity extends AppCompatActivity {
         adapter = new CustomAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+//        dialog = new ProgressDialog(this);
+//        dialog.setTitle("게시글 불러오는중..");
+//        dialog.setMessage("ing...");
+//        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        dialog.show();
 
         loadData();
     }

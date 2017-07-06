@@ -7,6 +7,25 @@
     tools:context="com.example.da08.h_photodiary.MainActivity"
     android:background="@drawable/main">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Photo Diary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/editEmail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintVertical_bias="0.641"
+        android:textSize="35dp"
+        android:textStyle="bold"/>
+
     <EditText
         android:id="@+id/editEmail"
         android:layout_width="wrap_content"
@@ -14,40 +33,46 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="input Email"
+        android:hint=" Email"
         android:inputType="textEmailAddress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/editPw" />
+        app:layout_constraintBottom_toTopOf="@+id/editPw"
+        android:background="@drawable/round_edit"/>
 
     <EditText
         android:id="@+id/editPw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="input Pw"
+        android:hint=" Pw"
         android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        android:layout_marginBottom="234dp" />
+        android:layout_marginBottom="234dp"
+        android:background="@drawable/round_edit"/>
 
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         android:onClick="signIn"
         android:text="Sign In"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/btnSignUp"
         app:layout_constraintTop_toBottomOf="@+id/editPw"
-        app:layout_constraintVertical_bias="0.497" />
+        app:layout_constraintVertical_bias="0.497"
+        android:background="@drawable/custom_btn"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/editPw"
+        app:layout_constraintHorizontal_bias="0.533" />
 
     <Button
         android:id="@+id/btnSignUp"
@@ -58,5 +83,6 @@
         android:onClick="signUp"
         android:text="Sign Up"
         app:layout_constraintRight_toRightOf="@+id/editPw"
-        app:layout_constraintTop_toTopOf="@+id/btnSignIn" />
+        app:layout_constraintTop_toTopOf="@+id/btnSignIn"
+        android:background="@drawable/custom_btn"/>
 </android.support.constraint.ConstraintLayout>

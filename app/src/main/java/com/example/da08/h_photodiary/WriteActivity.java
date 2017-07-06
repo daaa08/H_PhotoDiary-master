@@ -66,6 +66,8 @@ public class WriteActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        // 파이어 베이스 스토리지에 방금 업로드한 파일의 경로
                         @SuppressWarnings("VisibleForTests")
                         Uri upLoadedUri = taskSnapshot.getDownloadUrl();
                         afterUploadFile(upLoadedUri);
@@ -75,6 +77,8 @@ public class WriteActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
                         Log.e("storage","fail"+exception.getMessage());
                     }
                 });
@@ -102,7 +106,7 @@ public class WriteActivity extends AppCompatActivity {
 
         if(imageUri != null){
             data.fileUriString = imageUri.toString();
-            data.imgUri = imageUri;
+//            data.imgUri = imageUri;
         }
         String dogKey = dogRef.push().getKey();
         dogRef.child(dogKey).setValue(data);
