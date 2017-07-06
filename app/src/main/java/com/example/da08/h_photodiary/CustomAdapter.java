@@ -16,11 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.da08.h_photodiary.R.id.imageView;
-import static com.example.da08.h_photodiary.R.id.txtContent;
-import static com.example.da08.h_photodiary.R.id.txtDate;
-import static com.example.da08.h_photodiary.R.id.txtTitle;
-
 /**
  * Created by Da08 on 2017. 7. 6..
  */
@@ -54,7 +49,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
         holder.title.setText(ddata.title);
         holder.setDate(convertLongToString(ddata.date));
         holder.setPosition(position);
-        holder.img.setImg(ddata.imgUri);
+        Glide.with(inflater.getContext()).load(ddata.fileUriString).into(holder.img);
 
     }
     private String convertLongToString(long date) {
@@ -90,21 +85,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
             txtIdate.setText(date + "");
         }
 
-        public void setImg(){
-            // 목록에서 넘어온 position 값을 이용해 상세보기 데이터를 결정
-            Intent intent = getIntent();
-            int position = intent.getIntExtra("LIST_POSITION", -1);
-
-            if(position > -1){
-                Data data = Ddata.list.get(position);
-                // 이미지 세팅
-                if(data.fileUriString != null && !"".equals(data.fileUriString)){
-                    Glide.with(this)
-                            .load(data.fileUriString)
-                            .into(img);
-                }
-            }
-
-        }
     }
 }
