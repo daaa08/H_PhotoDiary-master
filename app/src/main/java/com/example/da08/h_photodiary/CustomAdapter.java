@@ -14,27 +14,25 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.data;
-
 /**
  * Created by Da08 on 2017. 7. 6..
  */
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
-    List<Data> list = new ArrayList<>();
+    List<Data> data = new ArrayList<>();
     private LayoutInflater inflater;
 
     public CustomAdapter(Context context) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setData(List<Data> list){
-        this.list = list;
+    public void setData(List<Data> data){
+        this.data = data;
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return data.size();
     }
 
     @Override
@@ -45,9 +43,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        Data data = list.get(position);
-        holder.txtTitle.setText(data.title);
-        holder.setDate(convertLongToString(data.date));
+        Data ddata = data.get(position);
+        holder.txtTitle.setText(ddata.title);
+        holder.setDate(convertLongToString(ddata.date));
         holder.setPosition(position);
 
     }

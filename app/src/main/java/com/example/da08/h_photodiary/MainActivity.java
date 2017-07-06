@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements PermissionControl
     }
 
     public void goList(){
-        Intent intent = new Intent(this, ListActivity.class);
+        Intent intent = new Intent(this, CustomListActivity.class);
        startActivity(intent);
         finish();
     }

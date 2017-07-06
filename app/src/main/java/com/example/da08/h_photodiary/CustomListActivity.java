@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
@@ -19,7 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class CustomListActivity extends AppCompatActivity {
+
     RecyclerView recyclerView;
     CustomAdapter adapter;
 
@@ -29,15 +29,13 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_custom_list);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ListActivity.this, WriteActivity.class);
+                Intent intent = new Intent(CustomListActivity.this, WriteActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,6 +1,8 @@
 package com.example.da08.h_photodiary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -8,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,7 +28,9 @@ import java.util.Date;
 
 public class WriteActivity extends AppCompatActivity {
 
+
     EditText editTitle, editContent;
+    Button btnSave, btnGallery;
     TextView txtImagename;
 
     FirebaseDatabase database;
@@ -38,69 +43,98 @@ public class WriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
-
+        // database 레퍼런스
         database = FirebaseDatabase.getInstance();
         dogRef = database.getReference("dog");
-
+        // storage 레퍼런스
         mStorageRef = FirebaseStorage.getInstance().getReference("images");
 
-        editTitle = (EditText) findViewById(R.id.editTitle);
-        editContent = (EditText) findViewById(R.id.editContent);
-        txtImagename = (TextView) findViewById(R.id.txtImagename);
-
+        editTitle = (EditText)findViewById(R.id.editTitle);
+        editContent = (EditText)findViewById(R.id.editContent);
+        btnSave  = (Button)findViewById(R.id.btnSave);
+        btnGallery  = (Button)findViewById(R.id.btnGallery);
+        txtImagename = (TextView)findViewById(R.id.txtImagename);
     }
 
-    public void postData(View view) {
-        String imagePath = txtImagename.getText().toString();
-        if(imagePath != null && !"".equals(imagePath)){
-            upLoadFile(imagePath);
-        }else{
-            afterUploadFile(null);
-        }
-
-    }
-    public void upLoadFile(String filePath) {
+    public void upLoadFile(String filePath){
         File file = new File(filePath);
         Uri uri = Uri.fromFile(file);
         String fileName = file.getName();
-        StorageReference fileRef = mStorageRef.child(fileName);
-        fileRef.putFile(uri)
+        StorageReference riversRef = mStorageRef.child(fileName);
+
+        riversRef.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                         @SuppressWarnings("VisibleForTests")
-                        Uri uploadedUri = taskSnapshot.getDownloadUrl();
-                        afterUploadFile(uploadedUri);
+                        Uri upLoadedUri = taskSnapshot.getDownloadUrl();
+                        afterUploadFile(upLoadedUri);
+                        Log.e("storage","success");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Log.e("FBStorage", "Upload Fail:" + exception.getMessage());
+                        Log.e("storage","fail"+exception.getMessage());
                     }
                 });
     }
 
+    public void postData(View v ){
+
+        String imgPath = txtImagename.getText().toString();
+        if(imgPath != null && !"".equals(imgPath)){
+            upLoadFile(imgPath);
+        }else{
+            afterUploadFile(null);
+        }
+
+    }
+
     public void afterUploadFile(Uri imageUri){
+
         String title = editTitle.getText().toString();
         String content = editContent.getText().toString();
         Date date = new Date();
-        long diaryDate = date.getTime();
+        long listdate = date.getTime();
 
-        Data data = new Data(title, content, diaryDate);
-        if(imageUri !=  null){
+        Data data = new Data(title,content,listdate);
+
+        if(imageUri != null){
             data.fileUriString = imageUri.toString();
         }
         String dogKey = dogRef.push().getKey();
         dogRef.child(dogKey).setValue(data);
-
         finish();
     }
 
-    public void openGallery(View view) {
+    public void openGallery(View v){
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(Intent.createChooser(intent, "앱을 선택하세요"), 100);
+        startActivityForResult( Intent.createChooser(intent, "앱을 선택하세요") , 100);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            switch (requestCode) {
+                case 100:
+                    Uri imageUri = data.getData();
+                    String filePath = getPsthFromUri(this,imageUri);
+                    txtImagename.setText(filePath);
+                    break;
+            }
+        }
+    }
+
+    public static String getPsthFromUri(Context context, Uri uri){
+        String realPath = "";
+        Cursor cu = context.getContentResolver().query(uri,null,null,null,null);
+        if(cu.moveToNext()){
+            realPath = cu.getString(cu.getColumnIndex("_data"));
+        }
+        cu.close();
+        return realPath;
     }
 }
