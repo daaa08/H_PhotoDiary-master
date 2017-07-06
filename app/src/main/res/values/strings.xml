@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">H_PhotoDiary</string>
+    <string name="app_name">PhotoDiary</string>
     <string name="title_activity_list">ListActivity</string>
 </resources>
