@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,11 +14,16 @@ import com.example.da08.h_photodiary.domain.Data;
 
 import java.text.SimpleDateFormat;
 
+import static android.R.id.content;
+import static android.R.id.title;
+
 public class ReadActivity extends AppCompatActivity {
 
     TextView txtTitle, txtDate, txtContent;
     ImageView imageView;
     Button btnDownload;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,20 @@ public class ReadActivity extends AppCompatActivity {
         btnDownload = (Button)findViewById(R.id.btnDownload);
 
         txtContent.setMovementMethod(new ScrollingMovementMethod());
+
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, title);
+                intent.putExtra(Intent.EXTRA_TEXT, content);
+
+                Intent chooser = Intent.createChooser(intent, "공유");
+                startActivity(chooser);
+            }
+        });
 
         setData();
     }
@@ -60,4 +80,7 @@ public class ReadActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
         return sdf.format(date);
     }
+
+
+
 }
