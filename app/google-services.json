@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "927125592674",
+    "firebase_url": "https://hphotodiary.firebaseio.com",
+    "project_id": "hphotodiary",
+    "storage_bucket": "hphotodiary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927125592674:android:1c95a1b907b5f657",
+        "android_client_info": {
+          "package_name": "com.example.da08.h_photodiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927125592674-6p5nek0mh8fc2mn949fordu974epl2ul.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.da08.h_photodiary",
+            "certificate_hash": "c434d4de09ea8e1a581cf17558a3e253550398e0"
+          }
+        },
+        {
+          "client_id": "927125592674-79j05v9gosehtl9759nnvhhat825j9v3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCryyW8jXko0BqF0DzzPlaFpoWjVCgzSPI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927125592674-79j05v9gosehtl9759nnvhhat825j9v3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
