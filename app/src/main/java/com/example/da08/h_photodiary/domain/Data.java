@@ -1,5 +1,7 @@
 package com.example.da08.h_photodiary.domain;
 
+import android.net.Uri;
+
 /**
  * Created by Da08 on 2017. 7. 6..
  */
@@ -10,6 +12,7 @@ public class Data {
     public String content;
     public long date;
     public String fileUriString;
+    public Uri imgUri;
 
     public Data() {
 

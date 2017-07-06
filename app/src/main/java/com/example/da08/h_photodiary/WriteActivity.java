@@ -102,6 +102,7 @@ public class WriteActivity extends AppCompatActivity {
 
         if(imageUri != null){
             data.fileUriString = imageUri.toString();
+            data.imgUri = imageUri;
         }
         String dogKey = dogRef.push().getKey();
         dogRef.child(dogKey).setValue(data);

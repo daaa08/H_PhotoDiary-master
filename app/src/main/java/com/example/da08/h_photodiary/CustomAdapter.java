@@ -6,13 +6,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.da08.h_photodiary.domain.Data;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.da08.h_photodiary.R.id.imageView;
+import static com.example.da08.h_photodiary.R.id.txtContent;
+import static com.example.da08.h_photodiary.R.id.txtDate;
+import static com.example.da08.h_photodiary.R.id.txtTitle;
 
 /**
  * Created by Da08 on 2017. 7. 6..
@@ -44,9 +51,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         Data ddata = data.get(position);
-        holder.txtTitle.setText(ddata.title);
+        holder.title.setText(ddata.title);
         holder.setDate(convertLongToString(ddata.date));
         holder.setPosition(position);
+        holder.img.setImg(ddata.imgUri);
 
     }
     private String convertLongToString(long date) {
@@ -55,13 +63,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
     }
 
     class Holder extends RecyclerView.ViewHolder{
-        private int position;
-        private TextView txtTitle,txtDate;
+        public int position;
+        public TextView title, txtIdate;
+        public ImageView img;
 
         public Holder(final View itemView){
             super(itemView);
-            txtTitle = (TextView)itemView.findViewById(R.id.txtTitle);
-            txtDate = (TextView)itemView.findViewById(R.id.txtDate);
+            title = (TextView)itemView.findViewById(R.id.title);
+            txtIdate = (TextView)itemView.findViewById(R.id.txtIdate);
+            img = (ImageView)itemView.findViewById(R.id.img);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,7 +87,24 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
             this.position = position;
         }
         public void setDate(String date){
-            txtDate.setText(date + "");
+            txtIdate.setText(date + "");
+        }
+
+        public void setImg(){
+            // 목록에서 넘어온 position 값을 이용해 상세보기 데이터를 결정
+            Intent intent = getIntent();
+            int position = intent.getIntExtra("LIST_POSITION", -1);
+
+            if(position > -1){
+                Data data = Ddata.list.get(position);
+                // 이미지 세팅
+                if(data.fileUriString != null && !"".equals(data.fileUriString)){
+                    Glide.with(this)
+                            .load(data.fileUriString)
+                            .into(img);
+                }
+            }
+
         }
     }
 }

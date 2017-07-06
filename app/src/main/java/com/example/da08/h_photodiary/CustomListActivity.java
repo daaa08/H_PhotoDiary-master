@@ -41,7 +41,7 @@ public class CustomListActivity extends AppCompatActivity {
         });
 
         database = FirebaseDatabase.getInstance();
-        dataRef = database.getReference("data");
+        dataRef = database.getReference("dog");
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         adapter = new CustomAdapter(this);
@@ -51,6 +51,9 @@ public class CustomListActivity extends AppCompatActivity {
         loadData();
     }
 
+    public CustomListActivity(){
+
+    }
     public void loadData(){
         Ddata.list.clear();
         dataRef.addValueEventListener(new ValueEventListener() {
