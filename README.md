@@ -40,6 +40,7 @@ private String convertLongToString(long date) {
         android:elevation="0dp">
 ```
 ---
+[재생영상](https://youtu.be/D7gmVVW25p8)
 
 ![스크린샷 2017-07-07 오전 5.53.53](http://i.imgur.com/IUrCv0E.png)
 
